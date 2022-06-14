@@ -1,0 +1,12 @@
+*.o
+*.d
+lib.a
+rel.a
+a.*
+*.bin
+*.PRG
+Debug
+Release
+.svn
+syntax.txt
+*.p0*
