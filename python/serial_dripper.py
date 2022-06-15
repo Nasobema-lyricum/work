@@ -27,20 +27,20 @@ def main():
     root.title(u'serial dripper')
     root.geometry("400x300")
 
-    snpFlileName = ttk.Label( root, text = 'file', padding = (5, 10))
-    snpFlileName.grid(row = 0, column = 0)
+    snp_filename = ttk.Label(root, text = 'file', padding = (5, 10))
+    snp_filename.grid(row = 0, column = 0)
 
-    snpBtn = ttk.Button( root, text = 'snoop', command = lambda: root.quit())
-    snpBtn.grid(row = 0, column = 1)
+    snp_btn = ttk.Button(root, text = 'snoop', command = snp_btn_click)
+    snp_btn.grid(row = 0, column = 1)
 
-    comName = ttk.Label( root, text = 'com', padding = (5, 10))
-    comName.grid(row = 1, column = 0)
+    com_name = ttk.Label(root, text = 'com', padding = (5, 10))
+    com_name.grid(row = 1, column = 0)
 
-    snoBtn = ttk.Button( root, text = 'serialNo', command = lambda: root.quit())
-    snoBtn.grid(row = 1, column = 1)
+    sno_btn = ttk.Button(root, text = 'serialNo', command = sno_btn_click)
+    sno_btn.grid(row = 1, column = 1)
 
-    quitBtn = ttk.Button( root, text = 'quit', command = lambda: root.quit())
-    quitBtn.grid(row = 2, column = 0)
+    quit_btn = ttk.Button(root, text = 'quit', command = lambda: root.quit())
+    quit_btn.grid(row = 2, column = 0)
 
     snp = serial.Serial(port = 'COM10',  baudrate = 115200, timeout = 0)
     sno = serial.Serial(port = 'COM12',  baudrate =   9600, timeout = 0)
@@ -65,6 +65,21 @@ def periodic():
         period.start()
 
         snp.write(b'test\r\n')
+
+
+def snp_btn_click():
+    global run
+    snp_file = filedialog.askopenfile(initialdir='~/')
+    if snp_file:
+        #  ファイルを開いてスレッドで周期的に投げる
+        run = True
+    else:
+        run = False
+
+
+def sno_btn_click():
+    # シリアル番号を投げる
+    pass
 
 
 if __name__ == '__main__':
