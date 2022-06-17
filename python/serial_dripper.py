@@ -4,6 +4,7 @@
     Todo:
 """
 import serial
+from serial.tools import list_ports
 import tkinter
 from tkinter import filedialog
 from tkinter import ttk
@@ -27,19 +28,25 @@ def main():
     root.title(u'serial dripper')
     root.geometry("400x300")
 
-    snp_filename = ttk.Label(root, text = 'file', padding = (5, 10))
-    snp_filename.grid(row = 0, column = 0)
 
-    snp_btn = ttk.Button(root, text = 'snoop', command = snp_btn_click)
-    snp_btn.grid(row = 0, column = 1)
+    ports = list_ports.comports()
+
+    snp_filename_label = ttk.Label(    root, text = 'file',  padding = (5, 10)            )
+    snp_port_combobox  = ttk.Combobox( root, state = 'readonly', textvariable = snp_port, values = ports )
+    snp_button         = ttk.Button(   root, text = 'start', command = snp_btn_click      )
 
     com_name = ttk.Label(root, text = 'com', padding = (5, 10))
-    com_name.grid(row = 1, column = 0)
-
     sno_btn = ttk.Button(root, text = 'serialNo', command = sno_btn_click)
-    sno_btn.grid(row = 1, column = 1)
 
     quit_btn = ttk.Button(root, text = 'quit', command = lambda: root.quit())
+
+    snp_filename_label.grid( row = 0, column = 0 )
+    snp_port_combobox.grid(  row = 0, column = 1 )
+    snp_button.grid(         row = 0, column = 2 )
+
+    com_name.grid( row = 1, column = 0 )
+    sno_btn.grid(  row = 1, column = 1 )
+
     quit_btn.grid(row = 2, column = 0)
 
     snp = serial.Serial(port = 'COM10',  baudrate = 115200, timeout = 0)
