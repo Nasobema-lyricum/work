@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+# vim:fileencoding=utf-8
 """モジュールの説明タイトル
 
 * ソースコードの一番始めに記載すること
